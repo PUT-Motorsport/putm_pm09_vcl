@@ -1,3 +1,4 @@
 float32 pedal_position
 float32 brake_pressure_front
 float32 brake_pressure_rear
+float32 steering_wheel_position
