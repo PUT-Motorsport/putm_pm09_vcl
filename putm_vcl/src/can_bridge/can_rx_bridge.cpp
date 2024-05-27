@@ -28,11 +28,20 @@ CanRxNode::CanRxNode() : Node("can_rx_bridge"), can_rx("can1", NO_TIMEOUT) {
 void CanRxNode::can_rx_node_main_loop() {
   can_frame frame = can_rx.receive();
   switch (frame.can_id) {
-    case can_id<Frontbox_main>: {
-      auto can_frontbox = PUTM_CAN::convert<PUTM_CAN::Frontbox_main>(frame);
+    case can_id<DriverInput>: {
+      auto can_frontbox = PUTM_CAN::convert<PUTM_CAN::DriverInput>(frame);
       putm_vcl_interfaces::msg::Frontbox frontbox;
-      frontbox.pedal_position = (((can_frontbox.pedal_position) / 500.0) * 100.0);
+      frontbox.pedal_position = (((can_frontbox.pedalPosition) / 500.0) * 100.0);
+      frontbox.brake_pressure_front = can_frontbox.brakePressureFront;
+      frontbox.brake_pressure_rear = can_frontbox.brakePressureRear;
+      frontbox.steering_wheel_position = can_frontbox.steeringWheelPosition;
       front_box_publisher->publish(frontbox);
+    }
+
+    case can_id<FrontData>:{
+      auto can_frontBoxData = PUTM_CAN::convert<PUTM_CAN::FrontData>(frame);
+      putm_vcl_interfaces::msg::Frontbox frontbox;
+
     }
   }
 }
