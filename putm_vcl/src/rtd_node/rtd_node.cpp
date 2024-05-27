@@ -27,7 +27,7 @@ class Rtd : public rclcpp::Node {
   void timer_callback() {
     auto rtdMsg = putm_vcl_interfaces::msg::Rtd();
     /* Entry condition */
-    if ((brake_pressure_front >= 100.0) or (brake_pressure_rear >= 100.0)) {
+    if ((brake_pressure_front >= 2000.0) or (brake_pressure_rear >= 2000.0)) {
       RCLCPP_INFO(this->get_logger(), "Braking...");
       if ((rtd_button_state) and not(rtd_state)) {
         RCLCPP_INFO(this->get_logger(), "RTD ON");
