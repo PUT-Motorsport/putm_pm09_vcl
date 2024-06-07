@@ -84,6 +84,16 @@ void CanRxNode::can_rx_amk_callback() {
       break;
     }
 
+    case can_id<AmkFrontLeftActualValues2>: {
+      auto can_amk = convert<AmkFrontLeftActualValues2>(frame);
+      amk_data.amk_temp_motor[Inverters::FRONT_LEFT] = static_cast<int16_t>(can_amk.AMK_TempMotor / 10);
+      amk_data.amk_temp_inverter[Inverters::FRONT_LEFT] = can_amk.AMK_TempInverter / 10;
+      amk_data.amk_error_info[Inverters::FRONT_LEFT] = can_amk.AMK_ErrorInfo;
+      amk_data.amk_temp_igbt[Inverters::FRONT_LEFT] = can_amk.AMK_TempIGBT / 10;
+      break;
+    }
+
+
     case can_id<AmkFrontRightActualValues1>: {
       auto can_amk = convert<AmkFrontRightActualValues1>(frame);
       amk_status.amk_status_bsystem_ready[Inverters::FRONT_RIGHT] = can_amk.AMK_Status.AMK_bSystemReady;
@@ -94,6 +104,18 @@ void CanRxNode::can_rx_amk_callback() {
       amk_status.amk_status_bquit_inverter_on[Inverters::FRONT_RIGHT] = can_amk.AMK_Status.AMK_bQuitInverterOn;
       amk_status.amk_status_binverter_on[Inverters::FRONT_RIGHT] = can_amk.AMK_Status.AMK_bInverterOn;
       amk_status.amk_status_bderating[Inverters::FRONT_RIGHT] = can_amk.AMK_Status.AMK_bDerating;
+
+      amk_data.amk_actual_velocity[Inverters::FRONT_RIGHT] = can_amk.AMK_ActualVelocity;
+      amk_data.amk_torque_current[Inverters::FRONT_RIGHT] = can_amk.AMK_TorqueCurrent;
+      break;
+    }
+
+    case can_id<AmkFrontRightActualValues2>: {
+      auto can_amk = convert<AmkFrontRightActualValues2>(frame);
+      amk_data.amk_temp_motor[Inverters::FRONT_RIGHT] = static_cast<int16_t>(can_amk.AMK_TempMotor / 10);
+      amk_data.amk_temp_inverter[Inverters::FRONT_RIGHT] = can_amk.AMK_TempInverter / 10;
+      amk_data.amk_error_info[Inverters::FRONT_RIGHT] = can_amk.AMK_ErrorInfo;
+      amk_data.amk_temp_igbt[Inverters::FRONT_RIGHT] = can_amk.AMK_TempIGBT / 10;
       break;
     }
 
@@ -107,6 +129,18 @@ void CanRxNode::can_rx_amk_callback() {
       amk_status.amk_status_bquit_inverter_on[Inverters::REAR_LEFT] = can_amk.AMK_Status.AMK_bQuitInverterOn;
       amk_status.amk_status_binverter_on[Inverters::REAR_LEFT] = can_amk.AMK_Status.AMK_bInverterOn;
       amk_status.amk_status_bderating[Inverters::REAR_LEFT] = can_amk.AMK_Status.AMK_bDerating;
+
+      amk_data.amk_actual_velocity[Inverters::REAR_LEFT] = can_amk.AMK_ActualVelocity;
+      amk_data.amk_torque_current[Inverters::REAR_LEFT] = can_amk.AMK_TorqueCurrent;
+      break;
+    }
+
+    case can_id<AmkRearLeftActualValues2>: {
+      auto can_amk = convert<AmkRearLeftActualValues2>(frame);
+      amk_data.amk_temp_motor[Inverters::REAR_LEFT] = static_cast<int16_t>(can_amk.AMK_TempMotor / 10);
+      amk_data.amk_temp_inverter[Inverters::REAR_LEFT] = can_amk.AMK_TempInverter / 10;
+      amk_data.amk_error_info[Inverters::REAR_LEFT] = can_amk.AMK_ErrorInfo;
+      amk_data.amk_temp_igbt[Inverters::REAR_LEFT] = can_amk.AMK_TempIGBT / 10;
       break;
     }
 
@@ -120,6 +154,19 @@ void CanRxNode::can_rx_amk_callback() {
       amk_status.amk_status_bquit_inverter_on[Inverters::REAR_RIGHT] = can_amk.AMK_Status.AMK_bQuitInverterOn;
       amk_status.amk_status_binverter_on[Inverters::REAR_RIGHT] = can_amk.AMK_Status.AMK_bInverterOn;
       amk_status.amk_status_bderating[Inverters::REAR_RIGHT] = can_amk.AMK_Status.AMK_bDerating;
+
+      amk_data.amk_actual_velocity[Inverters::REAR_RIGHT] = can_amk.AMK_ActualVelocity;
+      amk_data.amk_torque_current[Inverters::REAR_RIGHT] = can_amk.AMK_TorqueCurrent;
+      break;
+    }
+
+    case can_id<AmkRearRightActualValues2>: {
+      RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000,  "AMkRearrightAcValues2");
+      auto can_amk = convert<AmkRearRightActualValues2>(frame);
+      amk_data.amk_temp_motor[Inverters::REAR_RIGHT] = can_amk.AMK_TempMotor / 10;
+      amk_data.amk_temp_inverter[Inverters::REAR_RIGHT] = can_amk.AMK_TempInverter / 10;
+      amk_data.amk_error_info[Inverters::REAR_RIGHT] = can_amk.AMK_ErrorInfo;
+      amk_data.amk_temp_igbt[Inverters::REAR_RIGHT] = can_amk.AMK_TempIGBT / 10;
       break;
     }
   }
