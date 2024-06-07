@@ -13,7 +13,7 @@ RtdNode::RtdNode()
       dashboard_subscriber(this->create_subscription<msg::Dashboard>("putm_vcl/dashboard", 1, std::bind(&RtdNode::dashboard_callback, this, _1))) {}
 
 void RtdNode::rtd_callback() {
-  if ((frontbox_driver_input.brake_pressure_front >= 2200.0 or frontbox_driver_input.brake_pressure_rear >= 2200.0) and dashboard.rtd_button and not rtd.state) {
+  if ((frontbox_driver_input.brake_pressure_front >= 1600.0 or frontbox_driver_input.brake_pressure_rear >= 1600.0) and dashboard.rtd_button and not rtd.state) {
     RCLCPP_INFO(this->get_logger(), "RTD: on");
     rtd.state = true;
   } else if (rtd.state and dashboard.rtd_button) {
