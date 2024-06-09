@@ -80,7 +80,10 @@ void CanRxNode::can_rx_amk_callback() {
 
       // TODO: Determine why only there
       amk_data.amk_actual_velocity[Inverters::FRONT_LEFT] = can_amk.AMK_ActualVelocity;
-      amk_data.amk_torque_current[Inverters::FRONT_LEFT] = can_amk.AMK_TorqueCurrent;
+      amk_data.amk_torque_current[Inverters::FRONT_LEFT] = ((can_amk.AMK_TorqueCurrent * 107.2)/ 16384);
+      amk_data.amk_magnetizing_current[Inverters::FRONT_LEFT] = ((can_amk.AMK_MagnetizingCurrent * 107.2)/ 16384);
+
+      
       break;
     }
 
@@ -106,7 +109,9 @@ void CanRxNode::can_rx_amk_callback() {
       amk_status.amk_status_bderating[Inverters::FRONT_RIGHT] = can_amk.AMK_Status.AMK_bDerating;
 
       amk_data.amk_actual_velocity[Inverters::FRONT_RIGHT] = can_amk.AMK_ActualVelocity;
-      amk_data.amk_torque_current[Inverters::FRONT_RIGHT] = can_amk.AMK_TorqueCurrent;
+      amk_data.amk_torque_current[Inverters::FRONT_RIGHT] = ((can_amk.AMK_TorqueCurrent * 107.2)/ 16384);
+      amk_data.amk_magnetizing_current[Inverters::FRONT_RIGHT] = ((can_amk.AMK_MagnetizingCurrent * 107.2)/ 16384);
+
       break;
     }
 
@@ -131,7 +136,8 @@ void CanRxNode::can_rx_amk_callback() {
       amk_status.amk_status_bderating[Inverters::REAR_LEFT] = can_amk.AMK_Status.AMK_bDerating;
 
       amk_data.amk_actual_velocity[Inverters::REAR_LEFT] = can_amk.AMK_ActualVelocity;
-      amk_data.amk_torque_current[Inverters::REAR_LEFT] = can_amk.AMK_TorqueCurrent;
+      amk_data.amk_torque_current[Inverters::REAR_LEFT] = ((can_amk.AMK_TorqueCurrent * 107.2)/ 16384);
+      amk_data.amk_magnetizing_current[Inverters::REAR_LEFT] = ((can_amk.AMK_MagnetizingCurrent * 107.2)/ 16384);
       break;
     }
 
@@ -156,7 +162,9 @@ void CanRxNode::can_rx_amk_callback() {
       amk_status.amk_status_bderating[Inverters::REAR_RIGHT] = can_amk.AMK_Status.AMK_bDerating;
 
       amk_data.amk_actual_velocity[Inverters::REAR_RIGHT] = can_amk.AMK_ActualVelocity;
-      amk_data.amk_torque_current[Inverters::REAR_RIGHT] = can_amk.AMK_TorqueCurrent;
+      amk_data.amk_torque_current[Inverters::REAR_RIGHT] = ((can_amk.AMK_TorqueCurrent * 107.2)/ 16384);
+      amk_data.amk_magnetizing_current[Inverters::REAR_RIGHT] = ((can_amk.AMK_MagnetizingCurrent * 107.2)/ 16384);
+
       break;
     }
 
