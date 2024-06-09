@@ -13,7 +13,9 @@ CanTxNode::CanTxNode()
       can_tx_common(can_interface_common),
       can_tx_amk_timer(this->create_wall_timer(10ms, std::bind(&CanTxNode::can_tx_amk_callback, this))),
       can_tx_common_timer(this->create_wall_timer(10ms, std::bind(&CanTxNode::can_tx_common_callback, this))),
-      amk_control_subscription(this->create_subscription<msg::AmkControl>("putm_vcl/amk_control", 1, std::bind(&CanTxNode::amk_control_callback, this, _1))) {}
+      amk_control_subscription(this->create_subscription<msg::AmkControl>("putm_vcl/amk_control", 1, std::bind(&CanTxNode::amk_control_callback, this, _1))),
+      rtd_subscription(this->create_subscription<msg::Rtd>("putm_vcl/rtd", 1, std::bind(&CanTxNode::rtd_callback, this, _1))) {}
+
 
 void CanTxNode::amk_control_callback(const msg::AmkControl msg) {
   amk_front_left_setpoints.AMK_Control.AMK_bInverterOn = msg.amk_control_binverter_on[Inverters::FRONT_LEFT];
@@ -49,6 +51,11 @@ void CanTxNode::amk_control_callback(const msg::AmkControl msg) {
   amk_rear_right_setpoints.AMK_TorqueLimitNegativ = msg.amk_torque_negative_limit[Inverters::REAR_RIGHT];
 }
 
+void CanTxNode::rtd_callback(const putm_vcl_interfaces::msg::Rtd msg)
+{
+  pcMainData.rtd = msg.state;
+}
+
 void CanTxNode::can_tx_amk_callback() {
   can_tx_amk.transmit(amk_front_left_setpoints);
   can_tx_amk.transmit(amk_front_right_setpoints);
@@ -60,6 +67,7 @@ void CanTxNode::can_tx_common_callback() {
   // Add common tx in here if needed
   // Example:
   // can_tx_common.transmit(something);
+  can_tx_common.transmit(pcMainData);
 }
 
 int main(int argc, char** argv) {
