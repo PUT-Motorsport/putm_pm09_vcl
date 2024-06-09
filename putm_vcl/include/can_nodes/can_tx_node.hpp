@@ -2,6 +2,8 @@
 
 #include "PUTM_DV_CAN_LIBRARY_RAII_2024/include/can_tx.hpp"
 #include "putm_vcl_interfaces/msg/amk_control.hpp"
+#include "putm_vcl_interfaces/msg/amk_data.hpp"
+#include "putm_vcl_interfaces/msg/amk_status.hpp"
 #include "putm_vcl_interfaces/msg/rtd.hpp"
 #include "rclcpp/rclcpp.hpp"
 
@@ -25,10 +27,14 @@ class CanTxNode : public rclcpp::Node {
 
   rclcpp::Subscription<putm_vcl_interfaces::msg::AmkControl>::SharedPtr amk_control_subscription;
   rclcpp::Subscription<putm_vcl_interfaces::msg::Rtd>::SharedPtr rtd_subscription;
+  rclcpp::Subscription<putm_vcl_interfaces::msg::AmkData>::SharedPtr amk_data_subscription;
+  rclcpp::Subscription<putm_vcl_interfaces::msg::AmkStatus>::SharedPtr amk_status_subscription;
 
   void can_tx_amk_callback();
   void can_tx_common_callback();
 
   void amk_control_callback(const putm_vcl_interfaces::msg::AmkControl msg);
   void rtd_callback (const putm_vcl_interfaces::msg::Rtd msg);
+  void amk_data_callback (const putm_vcl_interfaces::msg::AmkData msg);
+  void amk_status_callback(const putm_vcl_interfaces::msg::AmkStatus msg);
 };
