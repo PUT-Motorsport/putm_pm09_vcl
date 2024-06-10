@@ -108,7 +108,17 @@ void AmkNode::amk_state_machine_callback() {
         RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000,  "Inverters On");
         rclcpp::sleep_for(10ms);
         amk_state_machine_watchdog->cancel();
+        state = StateMachine::WAIT_FOR_ZERO_INPUT;
+      }
+    } break;
+    case StateMachine::WAIT_FOR_ZERO_INPUT:{
+      if (setpoints.torques[Inverters::FRONT_LEFT] == 0 and setpoints.torques[Inverters::FRONT_RIGHT] == 0 and setpoints.torques[Inverters::REAR_LEFT] == 0 and setpoints.torques[Inverters::REAR_RIGHT] == 0)
+      {
         state = StateMachine::TORQUE_CONTROL;
+      }
+      else
+      {
+        RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000, "Waiting for pedal zero position");
       }
     } break;
     case StateMachine::TORQUE_CONTROL: {
