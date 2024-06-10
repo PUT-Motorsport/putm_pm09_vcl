@@ -11,7 +11,7 @@ class AmkNode : public rclcpp::Node {
   AmkNode();
 
  private:
-  enum class StateMachine { UNDEFINED = -1, IDLING, STARTUP, TORQUE_CONTROL, SWITCH_OFF, ERROR_HANDLER, ERROR_RESET };
+  enum class StateMachine { UNDEFINED = -1, IDLING, STARTUP, WAIT_FOR_ZERO_INPUT,TORQUE_CONTROL, SWITCH_OFF, ERROR_HANDLER, ERROR_RESET };
 
   StateMachine state;
 
