@@ -12,7 +12,7 @@ CanTxNode::CanTxNode()
       can_tx_amk(can_interface_amk),
       can_tx_common(can_interface_common),
       can_tx_amk_timer(this->create_wall_timer(10ms, std::bind(&CanTxNode::can_tx_amk_callback, this))),
-      can_tx_common_timer(this->create_wall_timer(25ms, std::bind(&CanTxNode::can_tx_common_callback, this))),
+      can_tx_common_timer(this->create_wall_timer(10ms, std::bind(&CanTxNode::can_tx_common_callback, this))),
       amk_control_subscription(this->create_subscription<msg::AmkControl>("putm_vcl/amk_control", 1, std::bind(&CanTxNode::amk_control_callback, this, _1))),
       rtd_subscription(this->create_subscription<msg::Rtd>("putm_vcl/rtd", 1, std::bind(&CanTxNode::rtd_callback, this, _1))) ,
       amk_data_subscription(this->create_subscription<msg::AmkData>("putm_vcl/amk_data", 1, std::bind(&CanTxNode::amk_data_callback, this, _1))),
