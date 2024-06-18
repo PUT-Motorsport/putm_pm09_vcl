@@ -182,16 +182,6 @@ void CanRxNode::can_rx_amk_callback() {
   amk_data_publisher->publish(amk_data);
 }
 
-inline float CanRxNode::calculate_actual_current(int16_t raw_current) 
-{
-  return ((raw_current * 107.2)/ 16384);
-}
-
-inline uint8_t CanRxNode::calculate_actual_temperature(int16_t raw_temperature) 
-{
-  return raw_temperature / 10;
-}
-
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<CanRxNode>());

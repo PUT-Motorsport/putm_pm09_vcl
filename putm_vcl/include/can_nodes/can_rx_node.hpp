@@ -30,6 +30,6 @@ class CanRxNode : public rclcpp::Node {
 
   void can_rx_amk_callback();
   void can_rx_common_callback();
-  float calculate_actual_current(int16_t);
-  uint8_t calculate_actual_temperature(int16_t);
+  inline float calculate_actual_current(int16_t raw_current) { return ((raw_current * 107.2)/ 16384);}
+  inline uint8_t calculate_actual_temperature(int16_t raw_temperature) { return raw_temperature / 10;}
 };
